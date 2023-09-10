@@ -1,10 +1,11 @@
 import User from "../models/UserModel";
+import { Request, Response } from "express";
 import bcrypt from "bcrypt";
 
 // @desc Create new user
 // @route POST /api/users
 // @access Private
-const createUser = async (req: any, res: any) => {
+const createUser = async (req: Request, res: Response) => {
   const { email, password } = req.body;
 
   if (!email || !password) {
