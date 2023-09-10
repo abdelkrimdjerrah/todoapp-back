@@ -9,7 +9,7 @@ const createUser = async (req: Request, res: Response) => {
   const { email, password } = req.body;
 
   if (!email || !password) {
-    return res
+    return res 
       .status(400)
       .json({ success: false, message: "All fields are required" });
   }
