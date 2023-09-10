@@ -6,11 +6,11 @@ const todoSchema = new mongoose.Schema<Entities.ITodo>({
     ref: "User",
     required: true,
   },
-  desc: {
+  text: {
     type: String,
     required: true,
   },
-  mark_as_done: {
+  isDone: {
     type: Boolean,
     default: false,
   },
