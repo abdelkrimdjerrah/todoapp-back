@@ -19,12 +19,12 @@ const login = async (req: Request, res: Response) => {
   const foundUser = await UserModel.findOne({ email }).exec();
 
   if (!foundUser) {
-    return res.status(401).json({ message: "Unauthorized" });
+    return res.status(401).json({ message: "Email or password is incorrect" });
   }
 
   const match = await bcrypt.compare(password, foundUser.password);
 
-  if (!match) return res.status(401).json({ message: "Unauthorized" });
+  if (!match) return res.status(401).json({ message: "Email or password is incorrect" });
 
   const accessToken = jwt.sign(
     {

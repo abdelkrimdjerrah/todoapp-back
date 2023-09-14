@@ -13,7 +13,10 @@ const todoSchema = new mongoose.Schema<Entities.ITodo>({
   isDone: {
     type: Boolean,
     default: false,
-  },
+  }
+},
+{
+  timestamps: true,
 });
 
 export default mongoose.model<Entities.ITodo>("Todo", todoSchema);

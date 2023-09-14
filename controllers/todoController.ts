@@ -6,14 +6,8 @@ import { Request, Response } from "express";
 // @access Private
 const getTodos = async (req: Request, res: Response) => {
   try {
-    const todos = await TodoModel.find().lean();
-
-    if (!todos?.length) {
-      return res
-        .status(400)
-        .json({ success: false, message: "No todos found" });
-    }
-
+    const userId = req.userId;
+    const todos = await TodoModel.find({userId}).sort({createdAt: -1});
     res.json({ success: true, todos });
   } catch (error) {
     res.status(500).json({ success: false, message: "Server error" });
@@ -79,8 +73,8 @@ const deleteTodo = async (req: Request, res: Response) => {
   }
 };
 
-// @desc Delete a todo
-// @route DELETE /api/todos/:todoId
+// @desc MarkAsDone a todo
+// @route PATCH /api/todos/:todoId
 // @access Private
 const isDoneTodo = async (req: Request, res: Response) => {
   try {
@@ -98,7 +92,8 @@ const isDoneTodo = async (req: Request, res: Response) => {
         .json({ success: false, message: "Todo not found" });
     }
 
-    todo.isDone = true;
+    todo.isDone = !todo.isDone;
+
     await todo.save();
 
     res.json({ success: true, message: `Todo with ID ${todoId} has been deleted` });

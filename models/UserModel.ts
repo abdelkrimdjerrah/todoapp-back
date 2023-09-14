@@ -10,6 +10,9 @@ const userSchema = new mongoose.Schema<Entities.IUser>({
     type: String,
     required: true,
   },
+},
+{
+  timestamps: true,
 });
 
 export default mongoose.model<Entities.IUser>("User", userSchema);
